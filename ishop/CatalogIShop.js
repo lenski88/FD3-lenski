@@ -14,7 +14,7 @@ let CatalogIShop = React.createClass({
     return React.DOM.div(
       { className: "CatalogIShop" },
       React.DOM.div({ className: "Nameshop" }, this.props.nameShop),
-      React.DOM.table({ className: "CatalogTable" }, catalogCode),
+      React.DOM.table({ className: "CatalogTable"}, catalogCode),
     );
   },
 });

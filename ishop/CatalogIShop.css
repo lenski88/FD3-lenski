@@ -3,14 +3,16 @@
   height: 100%;
 }
 
-.CatalogIShop .Nameshop {
-  padding: 10px;
+.CatalogIShop .Nameshop { 
+  padding: 2%;
   font-weight: bold;
-  font-size: 22px;
+  font-size: 1.7em;
+  text-align: center;
 }
+
 .CatalogIShop .CatalogTable {
   border-collapse: collapse;
-  width: 40%;
+  width: 100%;
   border: solid 1px;
   background-color: #ced6d0;
 }
@@ -18,5 +20,5 @@
 .CatalogIShop .CatalogTable .CatalogTr .CatalogTd {
   border: solid 1px;
   text-align: center;
-  padding: 10px;
+  padding:1.5% 0 1.5% 0;
 }
