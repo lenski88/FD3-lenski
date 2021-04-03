@@ -7,8 +7,8 @@
 <body>
     <div id="container"></div>
 
-    <script src=""https://unpkg.com/react@15/dist/react.js""></script>
-    <script src=""https://unpkg.com/react-dom@15/dist/react-dom.js""></script>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
 
     <script src="CatalogIShop.js"></script>
     <link rel="stylesheet" type="text/css" href="CatalogIShop.css"/>
@@ -26,7 +26,7 @@
         ];
 
         ReactDOM.render(
-            React.createELement(CatalogIShop, {nameShop:nameShopText, catalog:catalogArr}),
+            React.createElement(CatalogIShop, {nameShop:nameShopText, catalog:catalogArr}),
             document.getElementById("container")
         );
 
