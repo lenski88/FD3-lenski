@@ -1,6 +1,11 @@
+body {
+  margin: 0;
+  padding: 0;
+}
 .CatalogIShop {
   width: 100%;
   height: 100%;
+  background-color:#edebe8;
 }
 
 .CatalogIShop .Nameshop { 
@@ -12,13 +17,23 @@
 
 .CatalogIShop .CatalogTable {
   border-collapse: collapse;
-  width: 100%;
+  width: 60%;
+  height: 40%;
   border: solid 1px;
   background-color: #ced6d0;
+  table-layout:fixed;
+  margin: 0 20% 0 20%;
 }
 
 .CatalogIShop .CatalogTable .CatalogTr .CatalogTd {
   border: solid 1px;
   text-align: center;
   padding:1.5% 0 1.5% 0;
+  width: 15%;
+  height: 10%;
+}
+
+.CatalogIShop .CatalogTable .CatalogTr .CatalogTd .CatalogImage {
+  width:100%;
+  height:100%;
 }
