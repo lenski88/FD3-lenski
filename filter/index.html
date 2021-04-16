@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Filter</title>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+
+    <script src="Filter.js"></script>
+    <link rel="stylesheet" type="text/css" href="Filter.css" />
+
+    <script>
+        let arr = [
+            { word: "компонент", code: 1 },
+            { word: "пропс", code: 2 },
+            { word: "передаётся", code: 3 },
+            { word: "массив", code: 4 }, { word: "строк", code: 5 },
+            { word: "отображает", code: 6 },
+            { word: "их", code: 7 },
+            { word: "вид", code: 8 },
+            { word: "вертикальный", code: 9 },
+            { word: "прокручивающийся", code: 10 },
+            { word: "список", code: 11 },
+            { word: "выше", code: 12 },
+            { word: "список", code: 13 },
+            { word: "отображается", code: 14 },
+            { word: "поле", code: 15 },
+            { word: "текстовый", code: 16 },
+            { word: "ввод", code: 17 },
+            { word: "птичка", code: 18 },
+            { word: "кнопка", code: 19 },
+            { word: "сброс", code: 20 },
+            { word: "состояние", code: 21 },
+        ];
+                
+        ReactDOM.render(
+            React.createElement(Filter, { words: arr }),
+            document.getElementById('container')
+        );
+    </script>
+
+</body>
+
+</html>
