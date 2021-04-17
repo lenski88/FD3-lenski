@@ -1,0 +1,11 @@
+
+  .CatalogIShop .CatalogTable .CatalogTr .CatalogTd .CatalogImage {
+    width:100%;
+    height:100%;
+  }
+
+  .CatalogIShop .CatalogTable .CatalogTr .CatalogTd .ButtonDelete {
+      width:50%;
+      height:20%;
+      
+  }
