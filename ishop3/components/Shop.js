@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import "./Shop.css";
 
 import Product from "./Product";
+import Card from "./Card";
 
 class Shop extends React.Component {
   static propTypes = {
@@ -23,19 +24,48 @@ class Shop extends React.Component {
   state = {
     products: this.props.catalog,
     isClickString: false,
+    cardWorkMode: 0 /* режим отбражения карты */,
+    cardProductId: null /* идентификатор товара карты */,
   };
 
   clickedString = (tr) => {
-    this.setState({ isClickString: tr });
-  }
+    this.setState({
+      isClickString: tr,
+      cardWorkMode: 1,
+      cardProductId: tr,
+    });
+  };
 
-  deleteProduct= (tr) => {
+  deleteProduct = (tr) => {
     let question = confirm("Удалить?");
     if (question) {
       let deleteProd = this.state.products.filter((i) => i.id !== tr);
-      this.setState({ products: deleteProd });
+      this.setState({
+        products: deleteProd,
+        cardWorkMode: 0,
+        cardProductId: null,
+      });
     }
-  }
+  };
+
+  cbEditString = (tr) => {
+    this.setState({
+      isClickString: tr,
+      cardWorkMode: 2,
+      cardProductId: tr,
+    });
+  };
+
+  saved = (newItem) => {
+    let products = this.state.products.map((i) => {
+      if (i.code === newItem.code) {
+        return newItem;
+      } else {
+        return i;
+      }
+    });
+    this.setState({ products: products, cardWorkMode: 0 });
+  };
 
   render() {
     let headerTable = this.props.catalogHd.map((i) => (
@@ -58,11 +88,16 @@ class Shop extends React.Component {
         price={i.price}
         urlImage={i.urlImage}
         balance={i.balance}
-        isClickString={i.id === this.state.isClickString}
         clickString={this.clickedString}
         deleteString={this.deleteProduct}
+        editString={this.cbEditString}
+        isClickString={i.id === this.state.isClickString}
       />
     ));
+
+    let item = this.state.products.find(
+      (i) => this.state.cardProductId === i.id
+    );
 
     return (
       <React.Fragment>
@@ -74,6 +109,13 @@ class Shop extends React.Component {
           </tbody>
         </table>
         <input type="button" value="Создать продукт" />
+        <br />
+        <br />
+        <Card
+          workMode={this.state.cardWorkMode}
+          viewProduct={item}
+          cbSave={this.saved}
+        />
       </React.Fragment>
     );
   }

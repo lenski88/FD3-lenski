@@ -11,19 +11,28 @@ class Product extends React.Component {
     urlImage: PropTypes.string.isRequired,
     balance: PropTypes.number.isRequired,
     clickString: PropTypes.func,
-    isClickString: PropTypes.bool,
     deleteString: PropTypes.func,
+    editString:PropTypes.func,
+    isClickString: PropTypes.bool,
   };
 
-  clickString = () => {
+  clickString = (e) => {
     this.props.clickString(this.props.id);
+    e.stopPropagation();
   };
 
-  deleteString = () => {
+  deleteString = (e) => {
     this.props.deleteString(this.props.id);
+    e.stopPropagation();
   };
+
+  editString = (e) => {
+    this.props.editString(this.props.id);
+    e.stopPropagation();
+  }
 
   render() {
+
     let colorString;
     if (this.props.isClickString) {
       colorString = { backgroundColor: "red" };
@@ -42,7 +51,7 @@ class Product extends React.Component {
           <input className="ButtonDelete" type="button" value="Удалить" onClick={this.deleteString} />
         </td>
         <td className="CatalogTd">
-          <input className="ButtonEdit" type="button" value="Редактировать" />
+          <input className="ButtonEdit" type="button" value="Редактировать" onClick={this.editString} />
         </td>
       </tr>
     );
