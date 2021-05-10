@@ -14,6 +14,7 @@ class Product extends React.Component {
     deleteString: PropTypes.func,
     editString:PropTypes.func,
     isClickString: PropTypes.bool,
+    disButton:PropTypes.number
   };
 
   clickString = (e) => {
@@ -48,10 +49,10 @@ class Product extends React.Component {
         </td>
         <td className="CatalogTd">{this.props.balance}</td>
         <td className="CatalogTd">
-          <input className="ButtonDelete" type="button" value="Удалить" onClick={this.deleteString} />
+          <input className="ButtonDelete" type="button" value="Удалить" onClick={this.deleteString} disabled={Boolean(this.props.disButton) && Number(this.props.disButton !== 1)} />
         </td>
         <td className="CatalogTd">
-          <input className="ButtonEdit" type="button" value="Редактировать" onClick={this.editString} />
+          <input className="ButtonEdit" type="button" value="Редактировать" onClick={this.editString} disabled={Boolean(this.props.disButton) && Number(this.props.disButton !== 1)} />
         </td>
       </tr>
     );

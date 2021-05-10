@@ -8,12 +8,17 @@ class Card extends React.Component {
     workMode: PropTypes.number.isRequired,
     viewProduct: PropTypes.object,
     cbSave: PropTypes.func,
+    cbCancelSaved: PropTypes.func,
   };
 
   state = {
-    name: "" ,
+    name: "",
     price: 0,
     balance: 0,
+    nameErr: "",
+    priceErr: "",
+    balanceErr: "",
+    disButton: false,
   };
 
   saveEditing = () => {
@@ -43,10 +48,35 @@ class Card extends React.Component {
     });
   };
 
+  cancelSave = () => {
+    this.props.cbCancelSaved();
+  };
+
+  validateAll = (e) => {
+    if (e.target.value == "") {
+      this.setState({
+        nameErr: "Не может быть пустым",
+        priceErr: "Не может быть пустым",
+        balanceErr: "Не может быть пустым",
+        disButton: true,
+      });
+    } else {
+      this.setState({
+        nameErr: "",
+        priceErr: "",
+        balanceErr: "",
+        disButton: false,
+      });
+
+    }
+  };
+
   render() {
+    /////////////////////////////////////////////////////////////////////
     if (this.props.workMode === 0) {
       return <p>Карточка не отображается</p>;
     }
+    //////////////////////////////////////////////////////////////////////////
     if (this.props.workMode === 1) {
       return (
         <React.Fragment>
@@ -58,6 +88,7 @@ class Card extends React.Component {
         </React.Fragment>
       );
     }
+    //////////////////////////////////////////////////////////////////////////////
     if (this.props.workMode === 2) {
       return (
         <React.Fragment>
@@ -67,7 +98,9 @@ class Card extends React.Component {
               type="text"
               value={this.state.name}
               onChange={this.validInputName}
+              onBlur={this.validateAll}
             />
+            <span style={{ color: "red" }}>{`  ${this.state.nameErr}`}</span>
           </label>
           <br />
           <label>
@@ -76,7 +109,9 @@ class Card extends React.Component {
               type="text"
               value={this.state.price}
               onChange={this.validInputPrice}
+              onBlur={this.validateAll}
             />
+            <span style={{ color: "red" }}>{`  ${this.state.priceErr}`}</span>
           </label>
           <br />
           <label>
@@ -85,16 +120,24 @@ class Card extends React.Component {
               type="text"
               value={this.state.balance}
               onChange={this.validInputBalance}
+              onBlur={this.validateAll}
             />
+            <span style={{ color: "red" }}>{`  ${this.state.balanceErr}`}</span>
           </label>
           <br />
-          <input type="button" value="Сохранить" onClick={this.saveEditing} />
-          <input type="button" value="Отмена" />
+          <input
+            type="button"
+            value="Сохранить"
+            onClick={this.saveEditing}
+            disabled={this.state.disButton}
+          />
+          <input type="button" value="Отмена" onClick={this.cancelSave} />
         </React.Fragment>
       );
     }
+    //////////////////////////////////////////////////////////////////////////////////////////////
     if (this.props.workMode === 3) {
-      return <p>Режим удаления</p>;
+      return <p>Режим создания</p>;
     }
   }
 }

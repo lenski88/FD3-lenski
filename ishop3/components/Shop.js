@@ -24,7 +24,7 @@ class Shop extends React.Component {
   state = {
     products: this.props.catalog,
     isClickString: false,
-    cardWorkMode: 0 /* режим отбражения карты */,
+    cardWorkMode: 0 /* режим отбражения карты: 0-не отображается, 1 - просмотр, 2- редактирование, 3 - создание нового */,
     cardProductId: null /* идентификатор товара карты */,
   };
 
@@ -67,6 +67,13 @@ class Shop extends React.Component {
     this.setState({ products: products, cardWorkMode: 0 });
   };
 
+  cancelSaved = () => {
+    this.setState({
+      cardProductId:null,
+      cardWorkMode:0,
+    })
+  }
+
   render() {
     let headerTable = this.props.catalogHd.map((i) => (
       <tr key={i.code} className="CatalogTr">
@@ -92,6 +99,7 @@ class Shop extends React.Component {
         deleteString={this.deleteProduct}
         editString={this.cbEditString}
         isClickString={i.id === this.state.isClickString}
+        disButton={this.state.cardWorkMode}
       />
     ));
 
@@ -115,6 +123,7 @@ class Shop extends React.Component {
           workMode={this.state.cardWorkMode}
           viewProduct={item}
           cbSave={this.saved}
+          cbCancelSaved={this.cancelSaved}
         />
       </React.Fragment>
     );
