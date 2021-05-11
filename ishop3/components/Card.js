@@ -5,19 +5,28 @@ import "./Card.css";
 
 class Card extends React.Component {
   static propTypes = {
+    defProduct: PropTypes.array.isRequired,
     workMode: PropTypes.number.isRequired,
     viewProduct: PropTypes.object,
     cbSave: PropTypes.func,
     cbCancelSaved: PropTypes.func,
+    cbSavedCreate: PropTypes.func,
+    newId:PropTypes.number,
+    newCode: PropTypes.number
   };
 
   state = {
-    name: "",
-    price: 0,
-    balance: 0,
+    name: this.props.defProduct.name || "",
+    price: this.props.defProduct.price || "",
+    urlImage: this.props.defProduct.urlImage || "",
+    balance: this.props.defProduct.balance || "",
+    id: this.props.newId,
+    code:this.props.newCode,
+    code: 1,
     nameErr: "",
     priceErr: "",
     balanceErr: "",
+    urlErr: "",
     disButton: false,
   };
 
@@ -48,8 +57,16 @@ class Card extends React.Component {
     });
   };
 
-  cancelSave = () => {
-    this.props.cbCancelSaved();
+  validInputUrlImage = (e) => {
+    this.setState({
+      urlImage: e.target.value,
+    });
+  };
+
+  validInputId = (e) => {
+    this.setState({
+      id: e.target.value,
+    });
   };
 
   validateAll = (e) => {
@@ -58,6 +75,7 @@ class Card extends React.Component {
         nameErr: "Не может быть пустым",
         priceErr: "Не может быть пустым",
         balanceErr: "Не может быть пустым",
+        urlErr: "Не может быть пустым",
         disButton: true,
       });
     } else {
@@ -65,18 +83,34 @@ class Card extends React.Component {
         nameErr: "",
         priceErr: "",
         balanceErr: "",
+        urlErr: "",
         disButton: false,
       });
-
     }
   };
 
+  cancelSave = () => {
+    this.props.cbCancelSaved();
+  };
+
+  saveCreate = () => {
+    this.props.cbSavedCreate({
+      ...this.props.viewProduct,
+      code: this.state.code,
+      id: this.state.id,
+      name: this.state.name,
+      price: this.state.price,
+      balance: this.state.balance,
+      urlImage: this.state.urlImage,
+      id: this.props.newId,
+      code: this.props.newCode
+    });
+  };
+
   render() {
-    /////////////////////////////////////////////////////////////////////
     if (this.props.workMode === 0) {
       return <p>Карточка не отображается</p>;
     }
-    //////////////////////////////////////////////////////////////////////////
     if (this.props.workMode === 1) {
       return (
         <React.Fragment>
@@ -88,56 +122,114 @@ class Card extends React.Component {
         </React.Fragment>
       );
     }
-    //////////////////////////////////////////////////////////////////////////////
+
     if (this.props.workMode === 2) {
       return (
         <React.Fragment>
-          <label>
-            Товар:
+          <form>
+            <label>
+              Товар:
+              <input
+                type="text"
+                value={this.state.name}
+                onChange={this.validInputName}
+                onBlur={this.validateAll}
+                autoFocus
+              />
+              <span style={{ color: "red" }}>{`  ${this.state.nameErr}`}</span>
+            </label>
+            <br />
+            <label>
+              Цена:
+              <input
+                type="text"
+                value={this.state.price}
+                onChange={this.validInputPrice}
+                onBlur={this.validateAll}
+              />
+              <span style={{ color: "red" }}>{`  ${this.state.priceErr}`}</span>
+            </label>
+            <br />
+            <label>
+              Остаток:
+              <input
+                type="text"
+                value={this.state.balance}
+                onChange={this.validInputBalance}
+                onBlur={this.validateAll}
+              />
+              <span
+                style={{ color: "red" }}
+              >{`  ${this.state.balanceErr}`}</span>
+            </label>
+            <br />
             <input
-              type="text"
-              value={this.state.name}
-              onChange={this.validInputName}
-              onBlur={this.validateAll}
+              type="button"
+              value="Сохранить"
+              onClick={this.saveEditing}
+              disabled={this.state.disButton}
             />
-            <span style={{ color: "red" }}>{`  ${this.state.nameErr}`}</span>
-          </label>
-          <br />
-          <label>
-            Цена:
-            <input
-              type="text"
-              value={this.state.price}
-              onChange={this.validInputPrice}
-              onBlur={this.validateAll}
-            />
-            <span style={{ color: "red" }}>{`  ${this.state.priceErr}`}</span>
-          </label>
-          <br />
-          <label>
-            Остаток:
-            <input
-              type="text"
-              value={this.state.balance}
-              onChange={this.validInputBalance}
-              onBlur={this.validateAll}
-            />
-            <span style={{ color: "red" }}>{`  ${this.state.balanceErr}`}</span>
-          </label>
-          <br />
-          <input
-            type="button"
-            value="Сохранить"
-            onClick={this.saveEditing}
-            disabled={this.state.disButton}
-          />
-          <input type="button" value="Отмена" onClick={this.cancelSave} />
+            <input type="button" value="Отмена" onClick={this.cancelSave} />
+          </form>
         </React.Fragment>
       );
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////
+
     if (this.props.workMode === 3) {
-      return <p>Режим создания</p>;
+      return (
+        <React.Fragment>
+          <form>
+            <label>
+              Товар:
+              <input
+                type="text"
+                value={this.state.name}
+                onChange={this.validInputName}
+                onBlur={this.validateAll}
+                autoFocus
+              /><span style={{ color: "red" }}>{`  ${this.state.nameErr}`}</span>
+            </label>
+            <br />
+            <label>
+              Цена:
+              <input
+                type="text"
+                value={this.state.price}
+                onChange={this.validInputPrice}
+                onBlur={this.validateAll}
+              /><span style={{ color: "red" }}>{`  ${this.state.priceErr}`}</span>
+            </label>
+            <br />
+            <label>
+              URL фото:
+              <input
+                type="text"
+                value={this.state.urlImage}
+                onChange={this.validInputUrlImage}
+                onBlur={this.validateAll}
+              /><span style={{ color: "red" }}>{`  ${this.state.urlErr}`}</span>
+            </label>
+            <br />
+            <label>
+              Остаток:
+              <input
+                type="text"
+                value={this.state.balance}
+                onChange={this.validInputBalance}
+                onBlur={this.validateAll}
+              /><span style={{ color: "red" }}>{`  ${this.state.balanceErr}`}</span>
+            </label>
+            <br />
+            <input
+              type="button"
+              value="Сохранить"
+              onClick={this.saveCreate}
+              disabled={this.state.disButton}
+            />
+            <input type="button" value="Отмена" onClick={this.cancelSave} />
+          </form>
+        </React.Fragment>
+      );
     }
   }
 }

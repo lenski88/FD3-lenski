@@ -69,10 +69,25 @@ class Shop extends React.Component {
 
   cancelSaved = () => {
     this.setState({
-      cardProductId:null,
-      cardWorkMode:0,
-    })
-  }
+      cardProductId: null,
+      cardWorkMode: 0,
+    });
+  };
+
+  createProduct = () => {
+    this.setState({
+      cardWorkMode: 3,
+    });
+  };
+
+  savedCreate = (newItem) => {
+    let products = this.state.products.push(newItem);
+    this.setState({
+      product: products,
+      cardWorkMode: 0,
+    });
+  };
+
 
   render() {
     let headerTable = this.props.catalogHd.map((i) => (
@@ -116,14 +131,22 @@ class Shop extends React.Component {
             {product}
           </tbody>
         </table>
-        <input type="button" value="Создать продукт" />
+        <input
+          type="button"
+          value="Создать продукт"
+          onClick={this.createProduct}
+        />
         <br />
         <br />
         <Card
+          defProduct={this.state.products}
           workMode={this.state.cardWorkMode}
           viewProduct={item}
+          newId={this.state.products[this.state.products.length - 1].id + 1}
+          newCode={this.state.products[this.state.products.length - 1].code + 1}
           cbSave={this.saved}
           cbCancelSaved={this.cancelSaved}
+          cbSavedCreate={this.savedCreate}
         />
       </React.Fragment>
     );

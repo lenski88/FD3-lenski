@@ -5,16 +5,16 @@ import "./Product.css";
 
 class Product extends React.Component {
   static propTypes = {
-    id: PropTypes.number.isRequired,
+    /* id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     urlImage: PropTypes.string.isRequired,
-    balance: PropTypes.number.isRequired,
+    balance: PropTypes.number.isRequired, */
     clickString: PropTypes.func,
     deleteString: PropTypes.func,
     editString:PropTypes.func,
     isClickString: PropTypes.bool,
-    disButton:PropTypes.number
+    disButton:PropTypes.number,
   };
 
   clickString = (e) => {
@@ -36,7 +36,7 @@ class Product extends React.Component {
 
     let colorString;
     if (this.props.isClickString) {
-      colorString = { backgroundColor: "red" };
+      colorString = { backgroundColor: "green" };
     } else {
       colorString = null;
     }
