@@ -88,7 +88,6 @@ class Shop extends React.Component {
     });
   };
 
-
   render() {
     let headerTable = this.props.catalogHd.map((i) => (
       <tr key={i.code} className="CatalogTr">
@@ -142,8 +141,8 @@ class Shop extends React.Component {
           defProduct={this.state.products}
           workMode={this.state.cardWorkMode}
           viewProduct={item}
-          newId={this.state.products[this.state.products.length - 1].id + 1}
-          newCode={this.state.products[this.state.products.length - 1].code + 1}
+          newId={Math.random()}
+          newCode={Math.random()}
           cbSave={this.saved}
           cbCancelSaved={this.cancelSaved}
           cbSavedCreate={this.savedCreate}
