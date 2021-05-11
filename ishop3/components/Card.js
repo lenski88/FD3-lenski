@@ -35,6 +35,7 @@ class Card extends React.Component {
       name: this.state.name,
       price: this.state.price,
       balance: this.state.balance,
+      urlImage: this.state.urlImage,
     });
   };
 
@@ -86,8 +87,20 @@ class Card extends React.Component {
         disButton: false,
       });
     }
-    if(!this.state.name || !this.state.price || !this.state.urlImage || !this.state.balance ) {
-      this.setState({disButton:true})
+    if (this.props.workMode === 2) {
+      if (!this.state.name || !this.state.price || !this.state.balance) {
+        this.setState({ disButton: true });
+      }
+    }
+    if (this.props.workMode === 3) {
+      if (
+        !this.state.name ||
+        !this.state.price ||
+        !this.state.urlImage ||
+        !this.state.balance
+      ) {
+        this.setState({ disButton: true });
+      }
     }
   };
 

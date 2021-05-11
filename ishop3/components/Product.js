@@ -5,11 +5,6 @@ import "./Product.css";
 
 class Product extends React.Component {
   static propTypes = {
-    /* id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    urlImage: PropTypes.string.isRequired,
-    balance: PropTypes.number.isRequired, */
     clickString: PropTypes.func,
     deleteString: PropTypes.func, 
     editString:PropTypes.func,
