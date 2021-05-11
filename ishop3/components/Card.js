@@ -11,8 +11,8 @@ class Card extends React.Component {
     cbSave: PropTypes.func,
     cbCancelSaved: PropTypes.func,
     cbSavedCreate: PropTypes.func,
-    newId:PropTypes.number,
-    newCode: PropTypes.number
+    newId: PropTypes.number,
+    newCode: PropTypes.number,
   };
 
   state = {
@@ -21,8 +21,7 @@ class Card extends React.Component {
     urlImage: this.props.defProduct.urlImage || "",
     balance: this.props.defProduct.balance || "",
     id: this.props.newId,
-    code:this.props.newCode,
-    code: 1,
+    code: this.props.newCode,
     nameErr: "",
     priceErr: "",
     balanceErr: "",
@@ -70,22 +69,25 @@ class Card extends React.Component {
   };
 
   validateAll = (e) => {
-    if (e.target.value == "") {
+    if (!e.target.value) {
       this.setState({
         nameErr: "Не может быть пустым",
         priceErr: "Не может быть пустым",
-        balanceErr: "Не может быть пустым",
         urlErr: "Не может быть пустым",
+        balanceErr: "Не может быть пустым",
         disButton: true,
       });
     } else {
       this.setState({
         nameErr: "",
         priceErr: "",
-        balanceErr: "",
         urlErr: "",
+        balanceErr: "",
         disButton: false,
       });
+    }
+    if(!this.state.name || !this.state.price || !this.state.urlImage || !this.state.balance ) {
+      this.setState({disButton:true})
     }
   };
 
@@ -103,7 +105,7 @@ class Card extends React.Component {
       balance: this.state.balance,
       urlImage: this.state.urlImage,
       id: this.props.newId,
-      code: this.props.newCode
+      code: this.props.newCode,
     });
   };
 
@@ -126,14 +128,13 @@ class Card extends React.Component {
     if (this.props.workMode === 2) {
       return (
         <React.Fragment>
-          <form>
+          <form onBlur={this.validateAll}>
             <label>
               Товар:
               <input
                 type="text"
                 value={this.state.name}
                 onChange={this.validInputName}
-                onBlur={this.validateAll}
                 autoFocus
               />
               <span style={{ color: "red" }}>{`  ${this.state.nameErr}`}</span>
@@ -145,7 +146,6 @@ class Card extends React.Component {
                 type="text"
                 value={this.state.price}
                 onChange={this.validInputPrice}
-                onBlur={this.validateAll}
               />
               <span style={{ color: "red" }}>{`  ${this.state.priceErr}`}</span>
             </label>
@@ -156,21 +156,20 @@ class Card extends React.Component {
                 type="text"
                 value={this.state.balance}
                 onChange={this.validInputBalance}
-                onBlur={this.validateAll}
               />
               <span
                 style={{ color: "red" }}
               >{`  ${this.state.balanceErr}`}</span>
             </label>
             <br />
-            <input
-              type="button"
-              value="Сохранить"
-              onClick={this.saveEditing}
-              disabled={this.state.disButton}
-            />
-            <input type="button" value="Отмена" onClick={this.cancelSave} />
           </form>
+          <input
+            type="button"
+            value="Сохранить"
+            onClick={this.saveEditing}
+            disabled={this.state.disButton}
+          />
+          <input type="button" value="Отмена" onClick={this.cancelSave} />
         </React.Fragment>
       );
     }
@@ -178,16 +177,16 @@ class Card extends React.Component {
     if (this.props.workMode === 3) {
       return (
         <React.Fragment>
-          <form>
+          <form onBlur={this.validateAll}>
             <label>
               Товар:
               <input
                 type="text"
                 value={this.state.name}
                 onChange={this.validInputName}
-                onBlur={this.validateAll}
                 autoFocus
-              /><span style={{ color: "red" }}>{`  ${this.state.nameErr}`}</span>
+              />
+              <span style={{ color: "red" }}>{`  ${this.state.nameErr}`}</span>
             </label>
             <br />
             <label>
@@ -196,8 +195,8 @@ class Card extends React.Component {
                 type="text"
                 value={this.state.price}
                 onChange={this.validInputPrice}
-                onBlur={this.validateAll}
-              /><span style={{ color: "red" }}>{`  ${this.state.priceErr}`}</span>
+              />
+              <span style={{ color: "red" }}>{`  ${this.state.priceErr}`}</span>
             </label>
             <br />
             <label>
@@ -206,8 +205,8 @@ class Card extends React.Component {
                 type="text"
                 value={this.state.urlImage}
                 onChange={this.validInputUrlImage}
-                onBlur={this.validateAll}
-              /><span style={{ color: "red" }}>{`  ${this.state.urlErr}`}</span>
+              />
+              <span style={{ color: "red" }}>{`  ${this.state.urlErr}`}</span>
             </label>
             <br />
             <label>
@@ -216,18 +215,20 @@ class Card extends React.Component {
                 type="text"
                 value={this.state.balance}
                 onChange={this.validInputBalance}
-                onBlur={this.validateAll}
-              /><span style={{ color: "red" }}>{`  ${this.state.balanceErr}`}</span>
+              />
+              <span
+                style={{ color: "red" }}
+              >{`  ${this.state.balanceErr}`}</span>
             </label>
             <br />
-            <input
-              type="button"
-              value="Сохранить"
-              onClick={this.saveCreate}
-              disabled={this.state.disButton}
-            />
-            <input type="button" value="Отмена" onClick={this.cancelSave} />
           </form>
+          <input
+            type="button"
+            value="Сохранить"
+            onClick={this.saveCreate}
+            disabled={this.state.disButton}
+          />
+          <input type="button" value="Отмена" onClick={this.cancelSave} />
         </React.Fragment>
       );
     }
