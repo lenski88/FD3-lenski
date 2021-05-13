@@ -76,7 +76,7 @@ class Shop extends React.Component {
 
   createProduct = () => {
     this.setState({
-      cardWorkMode: 3,
+      cardWorkMode: 3
     });
   };
 

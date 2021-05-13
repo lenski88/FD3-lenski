@@ -37,6 +37,12 @@ class Card extends React.Component {
       balance: this.state.balance,
       urlImage: this.state.urlImage,
     });
+    this.setState({
+      name: "",
+      price: "",
+      urlImage: "",
+      balance: "",
+    });
   };
 
   validInputName = (e) => {
@@ -87,9 +93,27 @@ class Card extends React.Component {
         disButton: false,
       });
     }
+
     if (this.props.workMode === 2) {
-      if (!this.state.name || !this.state.price || !this.state.balance) {
-        this.setState({ disButton: true });
+      this.setState({
+        name: this.props.viewProduct.name,
+        price: this.props.viewProduct.price,
+        urlImage: this.props.viewProduct.urlImage,
+        balance: this.props.viewProduct.balance,
+      });
+      if (
+        this.state.name === "" &&
+        this.state.price === "" &&
+        this.state.urlImage === "" &&
+        this.state.balance === ""
+      ) {
+        this.setState({
+          nameErr: "Не может быть пустым",
+          priceErr: "Не может быть пустым",
+          urlErr: "Не может быть пустым",
+          balanceErr: "Не может быть пустым",
+          disButton: true,
+        });
       }
     }
     if (this.props.workMode === 3) {
@@ -99,7 +123,13 @@ class Card extends React.Component {
         !this.state.urlImage ||
         !this.state.balance
       ) {
-        this.setState({ disButton: true });
+        this.setState({
+          nameErr: "Не может быть пустым",
+          priceErr: "Не может быть пустым",
+          urlErr: "Не может быть пустым",
+          balanceErr: "Не может быть пустым",
+          disButton: true,
+        });
       }
     }
   };
@@ -120,8 +150,15 @@ class Card extends React.Component {
       id: this.props.newId,
       code: this.props.newCode,
     });
+    this.setState({
+      name: "",
+      price: "",
+      urlImage: "",
+      balance: "",
+    });
   };
 
+  
   render() {
     if (this.props.workMode === 0) {
       return <p>Карточка не отображается</p>;
@@ -141,13 +178,14 @@ class Card extends React.Component {
     if (this.props.workMode === 2) {
       return (
         <React.Fragment>
-          <form onBlur={this.validateAll}>
+          <form>
             <label>
               Товар:
               <input
                 type="text"
-                value={this.state.name}
+                defaultValue={this.props.viewProduct.name}
                 onChange={this.validInputName}
+                onBlur={this.validateAll}
                 autoFocus
               />
               <span style={{ color: "red" }}>{`  ${this.state.nameErr}`}</span>
@@ -157,18 +195,31 @@ class Card extends React.Component {
               Цена:
               <input
                 type="text"
-                value={this.state.price}
+                defaultValue={this.props.viewProduct.price}
                 onChange={this.validInputPrice}
+                onBlur={this.validateAll}
               />
               <span style={{ color: "red" }}>{`  ${this.state.priceErr}`}</span>
+            </label>
+            <br />
+            <label>
+              URL фото:
+              <input
+                type="text"
+                defaultValue={this.props.viewProduct.urlImage}
+                onChange={this.validInputUrlImage}
+                onBlur={this.validateAll}
+              />
+              <span style={{ color: "red" }}>{`  ${this.state.urlErr}`}</span>
             </label>
             <br />
             <label>
               Остаток:
               <input
                 type="text"
-                value={this.state.balance}
+                defaultValue={this.props.viewProduct.balance}
                 onChange={this.validInputBalance}
+                onBlur={this.validateAll}
               />
               <span
                 style={{ color: "red" }}
@@ -190,13 +241,14 @@ class Card extends React.Component {
     if (this.props.workMode === 3) {
       return (
         <React.Fragment>
-          <form onBlur={this.validateAll}>
+          <form>
             <label>
               Товар:
               <input
                 type="text"
                 value={this.state.name}
                 onChange={this.validInputName}
+                onBlur={this.validateAll}
                 autoFocus
               />
               <span style={{ color: "red" }}>{`  ${this.state.nameErr}`}</span>
@@ -208,6 +260,7 @@ class Card extends React.Component {
                 type="text"
                 value={this.state.price}
                 onChange={this.validInputPrice}
+                onBlur={this.validateAll}
               />
               <span style={{ color: "red" }}>{`  ${this.state.priceErr}`}</span>
             </label>
@@ -218,6 +271,7 @@ class Card extends React.Component {
                 type="text"
                 value={this.state.urlImage}
                 onChange={this.validInputUrlImage}
+                onBlur={this.validateAll}
               />
               <span style={{ color: "red" }}>{`  ${this.state.urlErr}`}</span>
             </label>
@@ -228,6 +282,7 @@ class Card extends React.Component {
                 type="text"
                 value={this.state.balance}
                 onChange={this.validInputBalance}
+                onBlur={this.validateAll}
               />
               <span
                 style={{ color: "red" }}
