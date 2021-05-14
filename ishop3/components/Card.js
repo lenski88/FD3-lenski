@@ -16,10 +16,10 @@ class Card extends React.Component {
   };
 
   state = {
-    name: this.props.defProduct.name || "",
-    price: this.props.defProduct.price || "",
-    urlImage: this.props.defProduct.urlImage || "",
-    balance: this.props.defProduct.balance || "",
+    name: /* this.props.defProduct.name || */ "",
+    price: /* this.props.defProduct.price || */ "",
+    urlImage: /* this.props.defProduct.urlImage || */ "",
+    balance: /* this.props.defProduct.balance || */ "",
     id: this.props.newId,
     code: this.props.newCode,
     nameErr: "",
@@ -36,12 +36,6 @@ class Card extends React.Component {
       price: this.state.price,
       balance: this.state.balance,
       urlImage: this.state.urlImage,
-    });
-    this.setState({
-      name: "",
-      price: "",
-      urlImage: "",
-      balance: "",
     });
   };
 
@@ -95,17 +89,11 @@ class Card extends React.Component {
     }
 
     if (this.props.workMode === 2) {
-      this.setState({
-        name: this.props.viewProduct.name,
-        price: this.props.viewProduct.price,
-        urlImage: this.props.viewProduct.urlImage,
-        balance: this.props.viewProduct.balance,
-      });
       if (
-        this.state.name === "" &&
-        this.state.price === "" &&
-        this.state.urlImage === "" &&
-        this.state.balance === ""
+        !this.state.name ||
+        !this.state.price  ||
+        !this.state.urlImage||
+        !this.state.balance
       ) {
         this.setState({
           nameErr: "Не может быть пустым",
@@ -140,7 +128,6 @@ class Card extends React.Component {
 
   saveCreate = () => {
     this.props.cbSavedCreate({
-      ...this.props.viewProduct,
       code: this.state.code,
       id: this.state.id,
       name: this.state.name,
@@ -151,11 +138,11 @@ class Card extends React.Component {
       code: this.props.newCode,
     });
     this.setState({
-      name: "",
+      name:"",
       price: "",
       urlImage: "",
-      balance: "",
-    });
+      balance:""
+    })
   };
 
   
