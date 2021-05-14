@@ -8,10 +8,11 @@ class BR2JSX extends React.Component {
 
   render() {
     let words = this.props.text.split(/<br\s?\/?>/i);
+    console.log(words);
     let parts = [];
     words.forEach((w, i) => {
       if (i) {
-        parts.push(<br />);
+        parts.push(<br key={Math.random()} />);
       }
       parts.push(w);
     });
