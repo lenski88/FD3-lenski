@@ -12,6 +12,7 @@ class Product extends React.Component {
     disButton:PropTypes.number,
   };
 
+
   clickString = (e) => {
     this.props.clickString(this.props.id);
     e.stopPropagation();

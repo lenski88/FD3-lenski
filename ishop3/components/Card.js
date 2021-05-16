@@ -37,6 +37,12 @@ class Card extends React.Component {
       balance: this.state.balance,
       urlImage: this.state.urlImage,
     });
+    this.setState ({
+      name: "",
+      price: "",
+      urlImage: "",
+      balance: ""
+    })
   };
 
   validInputName = (e) => {
@@ -170,7 +176,7 @@ class Card extends React.Component {
               Товар:
               <input
                 type="text"
-                defaultValue={this.props.viewProduct.name}
+                value={this.props.viewProduct.name}
                 onChange={this.validInputName}
                 onBlur={this.validateAll}
                 autoFocus
@@ -182,7 +188,7 @@ class Card extends React.Component {
               Цена:
               <input
                 type="text"
-                defaultValue={this.props.viewProduct.price}
+                value={this.props.viewProduct.price}
                 onChange={this.validInputPrice}
                 onBlur={this.validateAll}
               />
@@ -193,7 +199,7 @@ class Card extends React.Component {
               URL фото:
               <input
                 type="text"
-                defaultValue={this.props.viewProduct.urlImage}
+                value={this.props.viewProduct.urlImage}
                 onChange={this.validInputUrlImage}
                 onBlur={this.validateAll}
               />
@@ -204,7 +210,7 @@ class Card extends React.Component {
               Остаток:
               <input
                 type="text"
-                defaultValue={this.props.viewProduct.balance}
+                value={this.props.viewProduct.balance}
                 onChange={this.validInputBalance}
                 onBlur={this.validateAll}
               />

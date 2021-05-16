@@ -1,7 +1,7 @@
 import React from "react";
 
 let withRainbowFrame = (colors) => (Component) => (props) => {
-  let code = props.chidren;
+  let code = <Component {...props} />;
   colors.forEach((c, i) => {
     code = (
       <div
@@ -13,8 +13,7 @@ let withRainbowFrame = (colors) => (Component) => (props) => {
           borderColor: c,
         }}
       >
-        {!i &&  <Component {...props} />}
-        { code }
+        {code}
       </div>
     );
   });
