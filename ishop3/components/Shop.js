@@ -26,6 +26,10 @@ class Shop extends React.Component {
     isClickString: false,
     cardWorkMode: 0 /* режим отбражения карты: 0-не отображается, 1 - просмотр, 2- редактирование, 3 - создание нового */,
     cardProductId: null /* идентификатор товара карты */,
+    name: "",
+    price: "",
+    urlImage: "",
+    balance: "",
   };
 
   clickedString = (tr) => {
@@ -53,6 +57,10 @@ class Shop extends React.Component {
       isClickString: tr,
       cardWorkMode: 2,
       cardProductId: tr,
+      name: this.state.products[tr].name,
+      price: this.state.products[tr].price,
+      urlImage: this.state.products[tr].urlImage,
+      balance: this.state.products[tr].balance,
     });
   };
 
@@ -76,7 +84,7 @@ class Shop extends React.Component {
 
   createProduct = () => {
     this.setState({
-      cardWorkMode: 3
+      cardWorkMode: 3,
     });
   };
 
@@ -121,6 +129,8 @@ class Shop extends React.Component {
       (i) => this.state.cardProductId === i.id
     );
 
+    let newId = this.state.products.length;
+    
     return (
       <React.Fragment>
         <div className="NameShop">{this.props.nameShop}</div>
@@ -141,11 +151,15 @@ class Shop extends React.Component {
           defProduct={this.state.products}
           workMode={this.state.cardWorkMode}
           viewProduct={item}
-          newId={Math.random()}
+          newId={newId}
           newCode={Math.random()}
           cbSave={this.saved}
           cbCancelSaved={this.cancelSaved}
           cbSavedCreate={this.savedCreate}
+          name={this.state.name}
+          price={this.state.price}
+          urlImage={this.state.urlImage}
+          balance={this.state.balance}
         />
       </React.Fragment>
     );

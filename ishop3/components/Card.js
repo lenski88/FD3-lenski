@@ -16,10 +16,10 @@ class Card extends React.Component {
   };
 
   state = {
-    name: this.props.defProduct.name || "",
-    price: this.props.defProduct.price || "",
-    urlImage: this.props.defProduct.urlImage || "",
-    balance: this.props.defProduct.balance || "",
+    name: this.props.name,
+    price: this.props.price,
+    urlImage: this.props.urlImage,
+    balance: this.props.balance,
     id: this.props.newId,
     code: this.props.newCode,
     nameErr: "",
@@ -29,6 +29,18 @@ class Card extends React.Component {
     disButton: false,
   };
 
+  componentDidUpdate(oldProps) {
+    if (this.props.workMode !== oldProps.workMode && this.props.workMode == 2) {
+      console.log("222");
+      this.setState({
+        name: this.props.name,
+        price: this.props.price,
+        urlImage: this.props.urlImage,
+        balance: this.props.balance,
+      });
+    }
+  }
+
   saveEditing = () => {
     this.props.cbSave({
       ...this.props.viewProduct,
@@ -37,12 +49,12 @@ class Card extends React.Component {
       balance: this.state.balance,
       urlImage: this.state.urlImage,
     });
-    this.setState ({
+    this.setState({
       name: "",
       price: "",
       urlImage: "",
-      balance: ""
-    })
+      balance: "",
+    });
   };
 
   validInputName = (e) => {
@@ -97,8 +109,8 @@ class Card extends React.Component {
     if (this.props.workMode === 2) {
       if (
         !this.state.name ||
-        !this.state.price  ||
-        !this.state.urlImage||
+        !this.state.price ||
+        !this.state.urlImage ||
         !this.state.balance
       ) {
         this.setState({
@@ -130,6 +142,12 @@ class Card extends React.Component {
 
   cancelSave = () => {
     this.props.cbCancelSaved();
+    this.setState({
+      name: "",
+      price: "",
+      urlImage: "",
+      balance: "",
+    });
   };
 
   saveCreate = () => {
@@ -144,18 +162,18 @@ class Card extends React.Component {
       code: this.props.newCode,
     });
     this.setState({
-      name:"",
+      name: "",
       price: "",
       urlImage: "",
-      balance:""
-    })
+      balance: "",
+    });
   };
 
-  
   render() {
     if (this.props.workMode === 0) {
       return <p>Карточка не отображается</p>;
     }
+
     if (this.props.workMode === 1) {
       return (
         <React.Fragment>
@@ -176,7 +194,7 @@ class Card extends React.Component {
               Товар:
               <input
                 type="text"
-                value={this.props.viewProduct.name}
+                value={this.state.name}
                 onChange={this.validInputName}
                 onBlur={this.validateAll}
                 autoFocus
@@ -188,7 +206,7 @@ class Card extends React.Component {
               Цена:
               <input
                 type="text"
-                value={this.props.viewProduct.price}
+                value={this.state.price}
                 onChange={this.validInputPrice}
                 onBlur={this.validateAll}
               />
@@ -199,7 +217,7 @@ class Card extends React.Component {
               URL фото:
               <input
                 type="text"
-                value={this.props.viewProduct.urlImage}
+                value={this.state.urlImage}
                 onChange={this.validInputUrlImage}
                 onBlur={this.validateAll}
               />
@@ -210,7 +228,7 @@ class Card extends React.Component {
               Остаток:
               <input
                 type="text"
-                value={this.props.viewProduct.balance}
+                value={this.state.balance}
                 onChange={this.validInputBalance}
                 onBlur={this.validateAll}
               />
