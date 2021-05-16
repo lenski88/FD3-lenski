@@ -16,10 +16,10 @@ class Card extends React.Component {
   };
 
   state = {
-    name: /* this.props.defProduct.name || */ "",
-    price: /* this.props.defProduct.price || */ "",
-    urlImage: /* this.props.defProduct.urlImage || */ "",
-    balance: /* this.props.defProduct.balance || */ "",
+    name: this.props.defProduct.name || "",
+    price: this.props.defProduct.price || "",
+    urlImage: this.props.defProduct.urlImage || "",
+    balance: this.props.defProduct.balance || "",
     id: this.props.newId,
     code: this.props.newCode,
     nameErr: "",
