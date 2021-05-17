@@ -31,7 +31,6 @@ class Card extends React.Component {
 
   componentDidUpdate(oldProps) {
     if (this.props.workMode !== oldProps.workMode && this.props.workMode == 2) {
-      console.log("222");
       this.setState({
         name: this.props.name,
         price: this.props.price,
@@ -88,54 +87,61 @@ class Card extends React.Component {
   };
 
   validateAll = (e) => {
-    if (!e.target.value) {
-      this.setState({
-        nameErr: "Не может быть пустым",
-        priceErr: "Не может быть пустым",
-        urlErr: "Не может быть пустым",
-        balanceErr: "Не может быть пустым",
-        disButton: true,
-      });
-    } else {
-      this.setState({
-        nameErr: "",
-        priceErr: "",
-        urlErr: "",
-        balanceErr: "",
-        disButton: false,
-      });
-    }
-
-    if (this.props.workMode === 2) {
+    if (e.target.name === "name") {
       if (
-        !this.state.name ||
-        !this.state.price ||
-        !this.state.urlImage ||
-        !this.state.balance
+        e.target.value === "" ||
+        e.target.value.charAt(0) !== e.target.value.charAt(0).toUpperCase() ||
+        Number(e.target.value)
       ) {
         this.setState({
-          nameErr: "Не может быть пустым",
-          priceErr: "Не может быть пустым",
-          urlErr: "Не может быть пустым",
-          balanceErr: "Не может быть пустым",
+          nameErr:
+            "Поле не может быть пустым; название товара должно начинаться с заглавной буквы",
           disButton: true,
+        });
+      } else {
+        this.setState({
+          nameErr: "",
+          disButton: false,
         });
       }
     }
-    if (this.props.workMode === 3) {
-      if (
-        !this.state.name ||
-        !this.state.price ||
-        !this.state.urlImage ||
-        !this.state.balance
-      ) {
+    if (e.target.name === "price") {
+      if (e.target.value === "" || isNaN(e.target.value) || e.target.value < 1) {
         this.setState({
-          nameErr: "Не может быть пустым",
-          priceErr: "Не может быть пустым",
-          urlErr: "Не может быть пустым",
-          balanceErr: "Не может быть пустым",
-          disButton: true,
+          priceErr: "Поле не может быть пустым; значение должно быть положительным числом",
+          disButton: true
+        })
+      } else {
+        this.setState({
+          priceErr: "",
+          disButton: false,
         });
+      }
+    }
+    if (e.target.name === "urlImage") {
+      if ( !/^[a-z]+:\/\//i.test(e.target.value)) {
+        this.setState({
+          urlErr: "Поле не может быть пустым; формат ввода, например: 'http://'",
+          disButton: true
+        })
+      } else {
+        this.setState({
+          urlErr: "",
+          disButton: false
+        })
+      }
+    }
+    if (e.target.name === "balance") {
+      if (e.target.value === "" || isNaN(e.target.value) || e.target.value < 0)  {
+        this.setState({
+          balanceErr: "Поле не может быть пустым; значение должно быть положительным числом либо равно 0",
+          disButton: true
+        })
+      } else {
+        this.setState ({
+          balanceErr: "",
+          disButton: false
+        })
       }
     }
   };
@@ -193,6 +199,7 @@ class Card extends React.Component {
             <label>
               Товар:
               <input
+                name="name"
                 type="text"
                 value={this.state.name}
                 onChange={this.validInputName}
@@ -205,6 +212,7 @@ class Card extends React.Component {
             <label>
               Цена:
               <input
+                name="price"
                 type="text"
                 value={this.state.price}
                 onChange={this.validInputPrice}
@@ -216,6 +224,7 @@ class Card extends React.Component {
             <label>
               URL фото:
               <input
+                name="urlImage"
                 type="text"
                 value={this.state.urlImage}
                 onChange={this.validInputUrlImage}
@@ -227,6 +236,7 @@ class Card extends React.Component {
             <label>
               Остаток:
               <input
+                name="balance"
                 type="text"
                 value={this.state.balance}
                 onChange={this.validInputBalance}
@@ -256,6 +266,7 @@ class Card extends React.Component {
             <label>
               Товар:
               <input
+                name="name"
                 type="text"
                 value={this.state.name}
                 onChange={this.validInputName}
@@ -268,6 +279,7 @@ class Card extends React.Component {
             <label>
               Цена:
               <input
+                name="price"
                 type="text"
                 value={this.state.price}
                 onChange={this.validInputPrice}
@@ -279,6 +291,7 @@ class Card extends React.Component {
             <label>
               URL фото:
               <input
+                name="urlImage"
                 type="text"
                 value={this.state.urlImage}
                 onChange={this.validInputUrlImage}
@@ -290,6 +303,7 @@ class Card extends React.Component {
             <label>
               Остаток:
               <input
+                name="balance"
                 type="text"
                 value={this.state.balance}
                 onChange={this.validInputBalance}
