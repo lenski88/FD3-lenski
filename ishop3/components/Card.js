@@ -87,6 +87,16 @@ class Card extends React.Component {
   };
 
   validateAll = (e) => {
+    if (
+      this.state.nameErr ||
+      this.state.priceErr ||
+      this.state.urlErr ||
+      this.state.balanceErr
+    ) {
+      this.setState({ disButton: true });
+    } else {
+      this.setState({ disButton: false });
+    }
     if (e.target.name === "name") {
       if (
         e.target.value === "" ||
@@ -101,47 +111,54 @@ class Card extends React.Component {
       } else {
         this.setState({
           nameErr: "",
-          disButton: false,
         });
       }
     }
     if (e.target.name === "price") {
-      if (e.target.value === "" || isNaN(e.target.value) || e.target.value < 1) {
+      if (
+        e.target.value === "" ||
+        isNaN(e.target.value) ||
+        e.target.value < 1
+      ) {
         this.setState({
-          priceErr: "Поле не может быть пустым; значение должно быть положительным числом",
-          disButton: true
-        })
+          priceErr:
+            "Поле не может быть пустым; значение должно быть положительным числом",
+          disButton: true,
+        });
       } else {
         this.setState({
           priceErr: "",
-          disButton: false,
         });
       }
     }
     if (e.target.name === "urlImage") {
-      if ( !/^[a-z]+:\/\//i.test(e.target.value)) {
+      if (!/^[a-z]+:\/\//i.test(e.target.value)) {
         this.setState({
-          urlErr: "Поле не может быть пустым; формат ввода, например: 'http://'",
-          disButton: true
-        })
+          urlErr:
+            "Поле не может быть пустым; формат ввода, например: 'http://'",
+          disButton: true,
+        });
       } else {
         this.setState({
           urlErr: "",
-          disButton: false
-        })
+        });
       }
     }
     if (e.target.name === "balance") {
-      if (e.target.value === "" || isNaN(e.target.value) || e.target.value < 0)  {
+      if (
+        e.target.value === "" ||
+        isNaN(e.target.value) ||
+        e.target.value < 0
+      ) {
         this.setState({
-          balanceErr: "Поле не может быть пустым; значение должно быть положительным числом либо равно 0",
-          disButton: true
-        })
+          balanceErr:
+            "Поле не может быть пустым; значение должно быть положительным числом либо равно 0",
+          disButton: true,
+        });
       } else {
-        this.setState ({
+        this.setState({
           balanceErr: "",
-          disButton: false
-        })
+        });
       }
     }
   };
@@ -176,6 +193,8 @@ class Card extends React.Component {
   };
 
   render() {
+    console.log("render");
+
     if (this.props.workMode === 0) {
       return <p>Карточка не отображается</p>;
     }
@@ -195,7 +214,7 @@ class Card extends React.Component {
     if (this.props.workMode === 2) {
       return (
         <React.Fragment>
-          <form>
+          <form >
             <label>
               Товар:
               <input
@@ -204,7 +223,6 @@ class Card extends React.Component {
                 value={this.state.name}
                 onChange={this.validInputName}
                 onBlur={this.validateAll}
-                autoFocus
               />
               <span style={{ color: "red" }}>{`  ${this.state.nameErr}`}</span>
             </label>
@@ -262,7 +280,7 @@ class Card extends React.Component {
     if (this.props.workMode === 3) {
       return (
         <React.Fragment>
-          <form>
+          <form >
             <label>
               Товар:
               <input
