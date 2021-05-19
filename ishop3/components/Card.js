@@ -191,6 +191,11 @@ class Card extends React.Component {
       price: "",
       urlImage: "",
       balance: "",
+      nameErr: "",
+      priceErr: "",
+      balanceErr: "",
+      urlErr: "",
+      disButton: false,
     });
   };
 

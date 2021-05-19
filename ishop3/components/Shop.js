@@ -130,6 +130,7 @@ class Shop extends React.Component {
     );
 
     let newId = this.state.products.length;
+    let newCode = this.state.products.length;
     
     return (
       <React.Fragment>
@@ -152,7 +153,7 @@ class Shop extends React.Component {
           workMode={this.state.cardWorkMode}
           viewProduct={item}
           newId={newId}
-          newCode={Math.random()}
+          newCode={newCode}
           cbSave={this.saved}
           cbCancelSaved={this.cancelSaved}
           cbSavedCreate={this.savedCreate}
