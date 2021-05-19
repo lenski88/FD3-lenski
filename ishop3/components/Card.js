@@ -26,7 +26,7 @@ class Card extends React.Component {
     priceErr: "",
     balanceErr: "",
     urlErr: "",
-    disButton: true,
+    disButton: false,
   };
 
   componentDidUpdate(oldProps) {
@@ -293,7 +293,7 @@ class Card extends React.Component {
             type="button"
             value="Сохранить"
             onClick={this.saveEditing}
-            disabled={false && this.state.disButton}
+            disabled={this.state.disButton}
           />
           <input type="button" value="Отмена" onClick={this.cancelSave} />
         </React.Fragment>
@@ -360,7 +360,7 @@ class Card extends React.Component {
             type="button"
             value="Сохранить"
             onClick={this.saveCreate}
-            disabled={this.state.disButton}
+            disabled={this.props.workMode === 3 && !this.state.balance? true: this.state.disButton}
           />
           <input type="button" value="Отмена" onClick={this.cancelSave} />
         </React.Fragment>
