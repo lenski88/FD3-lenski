@@ -60,43 +60,6 @@ class Card extends React.Component {
     this.setState({
       name: e.target.value,
     });
-  };
-
-  validInputPrice = (e) => {
-    this.setState({
-      price: e.target.value,
-    });
-  };
-
-  validInputBalance = (e) => {
-    this.setState({
-      balance: e.target.value,
-    });
-  };
-
-  validInputUrlImage = (e) => {
-    this.setState({
-      urlImage: e.target.value,
-    });
-  };
-
-  validInputId = (e) => {
-    this.setState({
-      id: e.target.value,
-    });
-  };
-
-  validateAll = (e) => {
-    if (
-      this.state.nameErr ||
-      this.state.priceErr ||
-      this.state.urlErr ||
-      this.state.balanceErr
-    ) {
-      this.setState({ disButton: true });
-    } else {
-      this.setState({ disButton: false });
-    }
     if (e.target.name === "name") {
       if (
         e.target.value === "" ||
@@ -114,6 +77,12 @@ class Card extends React.Component {
         });
       }
     }
+  };
+
+  validInputPrice = (e) => {
+    this.setState({
+      price: e.target.value,
+    });
     if (e.target.name === "price") {
       if (
         e.target.value === "" ||
@@ -131,19 +100,12 @@ class Card extends React.Component {
         });
       }
     }
-    if (e.target.name === "urlImage") {
-      if (!/^[a-z]+:\/\//i.test(e.target.value)) {
-        this.setState({
-          urlErr:
-            "Поле не может быть пустым; формат ввода, например: 'http://'",
-          disButton: true,
-        });
-      } else {
-        this.setState({
-          urlErr: "",
-        });
-      }
-    }
+  };
+
+  validInputBalance = (e) => {
+    this.setState({
+      balance: e.target.value,
+    });
     if (e.target.name === "balance") {
       if (
         e.target.value === "" ||
@@ -160,6 +122,65 @@ class Card extends React.Component {
           balanceErr: "",
         });
       }
+    }
+  };
+
+  validInputUrlImage = (e) => {
+    this.setState({
+      urlImage: e.target.value,
+    });
+    if (e.target.name === "urlImage") {
+      if (!/^[a-z]+:\/\//i.test(e.target.value)) {
+        this.setState({
+          urlErr:
+            "Поле не может быть пустым; формат ввода, например: 'http://'",
+          disButton: true,
+        });
+      } else {
+        this.setState({
+          urlErr: "",
+        });
+      }
+    }
+  };
+
+  validInputId = (e) => {
+    this.setState({
+      id: e.target.value,
+    });
+  };
+
+  validateAll = (e) => {
+    if (
+      !this.state.name ||
+      this.state.nameErr ||
+      !this.state.price ||
+      this.state.priceErr ||
+      !this.state.urlImage ||
+      this.state.urlErr ||
+      !this.state.balance ||
+      this.state.balanceErr
+    ) {
+      this.setState({ disButton: true });
+    } else {
+      this.setState({ disButton: false });
+    }
+    if (
+      this.props.workMode === 3 &&
+      !this.state.name &&
+      !this.state.price &&
+      !this.state.urlImage &&
+      !this.state.balance
+    ) {
+      this.setState({
+        nameErr:
+          "Поле не может быть пустым; название товара должно начинаться с заглавной буквы",
+        priceErr:
+          "Поле не может быть пустым; значение должно быть положительным числом",
+        urlErr: "Поле не может быть пустым; формат ввода, например: 'http://'",
+        balanceErr:
+          "Поле не может быть пустым; значение должно быть положительным числом либо равно 0",
+      });
     }
   };
 
@@ -193,8 +214,6 @@ class Card extends React.Component {
   };
 
   render() {
-    console.log("render");
-
     if (this.props.workMode === 0) {
       return <p>Карточка не отображается</p>;
     }
@@ -214,7 +233,7 @@ class Card extends React.Component {
     if (this.props.workMode === 2) {
       return (
         <React.Fragment>
-          <form >
+          <form>
             <label>
               Товар:
               <input
@@ -280,7 +299,7 @@ class Card extends React.Component {
     if (this.props.workMode === 3) {
       return (
         <React.Fragment>
-          <form >
+          <form>
             <label>
               Товар:
               <input
