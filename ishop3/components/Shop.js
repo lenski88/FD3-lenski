@@ -44,6 +44,11 @@ class Shop extends React.Component {
     let question = confirm("Удалить?");
     if (question) {
       let deleteProd = this.state.products.filter((i) => i.id !== tr);
+      deleteProd.map((i, prevIndex=0) => {
+        i.code= prevIndex;
+        i.id = prevIndex;
+        prevIndex += 1 ;
+      })
       this.setState({
         products: deleteProd,
         cardWorkMode: 0,

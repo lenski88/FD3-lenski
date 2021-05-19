@@ -26,7 +26,7 @@ class Card extends React.Component {
     priceErr: "",
     balanceErr: "",
     urlErr: "",
-    disButton: false,
+    disButton: true,
   };
 
   componentDidUpdate(oldProps) {
@@ -183,7 +183,6 @@ class Card extends React.Component {
       });
     }
   };
-
   cancelSave = () => {
     this.props.cbCancelSaved();
     this.setState({
@@ -195,7 +194,7 @@ class Card extends React.Component {
       priceErr: "",
       balanceErr: "",
       urlErr: "",
-      disButton: false,
+      disButton: true,
     });
   };
 
@@ -294,7 +293,7 @@ class Card extends React.Component {
             type="button"
             value="Сохранить"
             onClick={this.saveEditing}
-            disabled={this.state.disButton}
+            disabled={false && this.state.disButton}
           />
           <input type="button" value="Отмена" onClick={this.cancelSave} />
         </React.Fragment>
