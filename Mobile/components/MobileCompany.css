@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #d3d6db;
+}
+
+.MobileCompany {
+  margin: 10px;
+}
+
+.MobileCompanyTable {
+  width: 100%;
+  table-layout: fixed;
+  text-align: left;
+  border-bottom: groove;
+}
+
+.MobileCompany .MobileCompanyName {
+  margin: 10px 0px;
+  border-bottom: groove;
+}
+
+.MobileCompany .MobileCompanyButton {
+  margin: 10px 2px 10px 0px;
+}

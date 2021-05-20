@@ -1,0 +1,10 @@
+
+.Blocked {
+    background-color:red;
+    text-align: center;
+}
+
+.Active {
+    background-color:green;
+    text-align: center;
+}
